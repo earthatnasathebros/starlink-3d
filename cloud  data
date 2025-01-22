@@ -1,0 +1,77 @@
+%------------------------------------------------------
+% Script Mission - Starlink Constellation with Cloud Data
+%------------------------------------------------------
+
+%------------------------------------------------------
+% Cloud Data Integration (Placeholder)
+%------------------------------------------------------
+
+% Incorporate cloud-related data for optical link evaluation
+% Example: Load cloud coverage data or integrate API for real-time cloud assessment
+% Note: Replace 'CloudDataAPI' with a function or process to fetch cloud data.
+Create Variable CloudCoverage;
+CloudCoverage = 0.0; % Placeholder for cloud coverage percentage (0-100)
+
+% Define a function or external call for real-time data integration
+% Example pseudocode:
+% CloudCoverage = FetchCloudData(Latitude, Longitude, Time);
+
+%------------------------------------------------------
+% Spacecraft Configuration
+%------------------------------------------------------
+
+% (Your spacecraft configuration remains unchanged)
+
+%------------------------------------------------------
+% Force Model Definition
+%------------------------------------------------------
+
+% (Your force model configuration remains unchanged)
+
+%------------------------------------------------------
+% Propagator Configuration
+%------------------------------------------------------
+
+% (Your propagator configuration remains unchanged)
+
+%------------------------------------------------------
+% Formation Setup
+%------------------------------------------------------
+
+% (Your formation configuration remains unchanged)
+
+%------------------------------------------------------
+% Visualization Setup
+%------------------------------------------------------
+
+% (Your visualization setup remains unchanged)
+
+%------------------------------------------------------
+% Mission Sequence with Cloud Analysis
+%------------------------------------------------------
+
+BeginMissionSequence;
+
+% Propagate the constellation for 1 day
+Propagate Prop1(Constellation) {Sat1.ElapsedSecs = 86400.0};
+
+% Evaluate cloud coverage at specified intervals
+While (ElapsedTime < 86400.0)
+    % Update cloud coverage (fetching real-time or simulated data)
+    % Example pseudocode for data integration
+    % CloudCoverage = FetchCloudData(Sat1.Latitude, Sat1.Longitude, CurrentEpoch);
+    
+    % Log or print cloud coverage for analysis
+    Report CloudCoverage;
+    
+    % Check conditions based on cloud coverage (e.g., adjust communication plan)
+    If (CloudCoverage > 50) % Example threshold
+        Report "High Cloud Coverage Detected";
+    EndIf;
+    
+    % Propagate for the next time step
+    Propagate Prop1(Constellation) {Sat1.ElapsedSecs = 600.0}; % Increment by 10 minutes
+EndWhile;
+
+% Finalize mission sequence
+EndMissionSequence;
