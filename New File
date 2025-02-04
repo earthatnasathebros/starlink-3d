@@ -1,0 +1,179 @@
+%------------------------------------------------------
+% Script: Starlink Constellation Propagation
+%------------------------------------------------------
+
+%------------------------------------------------------
+% Spacecraft Configuration
+%------------------------------------------------------
+
+% Satellite 1 (Base configuration)
+Create Spacecraft Sat1;
+GMAT Sat1.DateFormat = TAIModJulian;
+GMAT Sat1.Epoch = 21545;  % Epoch time (Julian Date)
+GMAT Sat1.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat1.DisplayStateType = Cartesian;
+GMAT Sat1.X = 7000;  % Orbital radius (in km)
+GMAT Sat1.Y = 0;
+GMAT Sat1.Z = 0;
+GMAT Sat1.VX = 0;  % Orbital velocity along X-axis
+GMAT Sat1.VY = 7.5;  % Orbital velocity along Y-axis
+GMAT Sat1.VZ = 0.1;  % Small Z-axis velocity to avoid exact circular orbit
+GMAT Sat1.DryMass = 260;  % Mass of the satellite
+GMAT Sat1.Cd = 2.5;  % Drag coefficient
+GMAT Sat1.Cr = 1.9;  % Reflectivity coefficient
+GMAT Sat1.DragArea = 2.5;  % Drag area (m^2)
+GMAT Sat1.SRPArea = 1;  % Solar Radiation Pressure Area (m^2)
+
+% Satellite 2 (Positioned at 120 degrees from Sat1)
+Create Spacecraft Sat2;
+GMAT Sat2.DateFormat = TAIModJulian;
+GMAT Sat2.Epoch = 21545;
+GMAT Sat2.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat2.DisplayStateType = Cartesian;
+GMAT Sat2.X = -3500;  % 7000 * cos(120 deg)
+GMAT Sat2.Y = 6062.177826491;  % 7000 * sin(120 deg)
+GMAT Sat2.Z = 0;
+GMAT Sat2.VX = -6.495190528383;  % -7.5 * sin(120 deg)
+GMAT Sat2.VY = -3.75;  % -7.5 * cos(120 deg)
+GMAT Sat2.VZ = 0.1;
+GMAT Sat2.DryMass = 260;
+GMAT Sat2.Cd = 2.5;
+GMAT Sat2.Cr = 1.9;
+GMAT Sat2.DragArea = 2.5;
+GMAT Sat2.SRPArea = 1;
+
+% Satellite 3 (Positioned at 240 degrees from Sat1)
+Create Spacecraft Sat3;
+GMAT Sat3.DateFormat = TAIModJulian;
+GMAT Sat3.Epoch = 21545;
+GMAT Sat3.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat3.DisplayStateType = Cartesian;
+GMAT Sat3.X = -3500;  % 7000 * cos(240 deg)
+GMAT Sat3.Y = -6062.177826491;  % 7000 * sin(240 deg)
+GMAT Sat3.Z = 0;
+GMAT Sat3.VX = 6.495190528383;  % 7.5 * sin(240 deg)
+GMAT Sat3.VY = -3.75;  % -7.5 * cos(240 deg)
+GMAT Sat3.VZ = 0.1;
+GMAT Sat3.DryMass = 260;
+GMAT Sat3.Cd = 2.5;
+GMAT Sat3.Cr = 1.9;
+GMAT Sat3.DragArea = 2.5;
+GMAT Sat3.SRPArea = 1;
+
+% Satellite 4 (Positioned at 45 degrees elevation)
+Create Spacecraft Sat4;
+GMAT Sat4.DateFormat = TAIModJulian;
+GMAT Sat4.Epoch = 21545;
+GMAT Sat4.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat4.DisplayStateType = Cartesian;
+GMAT Sat4.X = 4949.747468305833;  % 7000 * cos(45 deg)
+GMAT Sat4.Y = 4949.747468305833;  % 7000 * sin(45 deg)
+GMAT Sat4.Z = 3500;  % Half radius elevation
+GMAT Sat4.VX = -5.303300858899;  % -7.5 * sin(45 deg)
+GMAT Sat4.VY = 5.303300858899;  % 7.5 * sin(45 deg)
+GMAT Sat4.VZ = 0.2;
+GMAT Sat4.DryMass = 260;
+GMAT Sat4.Cd = 2.5;
+GMAT Sat4.Cr = 1.9;
+GMAT Sat4.DragArea = 2.5;
+GMAT Sat4.SRPArea = 1;
+
+% Satellite 5 (Positioned at -45 degrees elevation)
+Create Spacecraft Sat5;
+GMAT Sat5.DateFormat = TAIModJulian;
+GMAT Sat5.Epoch = 21545;
+GMAT Sat5.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat5.DisplayStateType = Cartesian;
+GMAT Sat5.X = -4949.747468305833;  % -7000 * cos(45 deg)
+GMAT Sat5.Y = -4949.747468305833;  % -7000 * sin(45 deg)
+GMAT Sat5.Z = 3500;  % Half radius elevation
+GMAT Sat5.VX = 5.303300858899;  % 7.5 * sin(45 deg)
+GMAT Sat5.VY = -5.303300858899;  % -7.5 * sin(45 deg)
+GMAT Sat5.VZ = 0.2;
+GMAT Sat5.DryMass = 260;
+GMAT Sat5.Cd = 2.5;
+GMAT Sat5.Cr = 1.9;
+GMAT Sat5.DragArea = 2.5;
+GMAT Sat5.SRPArea = 1;
+
+% Satellite 6 (Full orbital elevation)
+Create Spacecraft Sat6;
+GMAT Sat6.DateFormat = TAIModJulian;
+GMAT Sat6.Epoch = 21545;
+GMAT Sat6.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat6.DisplayStateType = Cartesian;
+GMAT Sat6.X = 0;
+GMAT Sat6.Y = 0;
+GMAT Sat6.Z = 7000;  % Full radius elevation
+GMAT Sat6.VX = 7.5;
+GMAT Sat6.VY = 0;
+GMAT Sat6.VZ = 0;
+GMAT Sat6.DryMass = 260;
+GMAT Sat6.Cd = 2.5;
+GMAT Sat6.Cr = 1.9;
+GMAT Sat6.DragArea = 2.5;
+GMAT Sat6.SRPArea = 1;
+% Define Ground Station Antenna
+Create Antenna GS_Antenna;
+Create GroundStation GS;
+
+%------------------------------------------------------
+% Force Model Definition
+%------------------------------------------------------
+
+% Central force model setup for the constellation
+Create ForceModel fm;
+GMAT fm.CentralBody = Earth;
+GMAT fm.PointMasses = {Earth, Sun, Luna};  % Including Sun and Moon as point masses
+GMAT fm.Drag = None;
+GMAT fm.SRP = Off;
+GMAT fm.RelativisticCorrection = Off;
+GMAT fm.ErrorControl = RSSStep;
+
+%------------------------------------------------------
+% Propagator Configuration
+%------------------------------------------------------
+
+% Set the propagator using the Runge-Kutta method
+Create Propagator Prop1;
+GMAT Prop1.Type = RungeKutta89;
+GMAT Prop1.FM = fm;
+GMAT Prop1.InitialStepSize = 60;  % Initial step size (seconds)
+GMAT Prop1.Accuracy = 1e-10;  % Desired accuracy
+GMAT Prop1.MinStep = 0.1;
+GMAT Prop1.MaxStep = 300;
+GMAT Prop1.MaxStepAttempts = 50;
+GMAT Prop1.StopIfAccuracyIsViolated = true;
+
+%------------------------------------------------------
+% Formation Setup
+%------------------------------------------------------
+
+% Define the satellite constellation
+Create Formation Constellation;
+GMAT Constellation.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6};
+
+%------------------------------------------------------
+% Visualization Setup
+%------------------------------------------------------
+
+% Create an orbit view for visualization
+Create OrbitView a3Dplot;
+GMAT a3Dplot.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6, Earth};
+GMAT a3Dplot.CoordinateSystem = EarthMJ2000Eq;
+GMAT a3Dplot.ShowPlot = true;
+GMAT a3Dplot.ShowLabels = true;
+GMAT a3Dplot.ViewPointReference = Earth;
+GMAT a3Dplot.ViewPointVector = [30000, -20000, 0];  % Viewpoint coordinates
+GMAT a3Dplot.ViewScaleFactor = 1;
+GMAT a3Dplot.StarCount = 7000;
+GMAT a3Dplot.EnableStars = On;
+GMAT a3Dplot.EnableConstellations = On;
+
+%------------------------------------------------------
+% Mission Sequence
+%------------------------------------------------------
+
+% Start mission sequence to propagate the constellation for one day (86400 seconds)
+BeginMissionSequence;
+Propagate Prop1(Constellation) {Sat1.ElapsedSecs = 86400.0};  % Propagate for 1 day (86400 seconds)
