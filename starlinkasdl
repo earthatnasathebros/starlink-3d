@@ -1,0 +1,60 @@
+%---------------------------------------------------
+% GMAT Script for Starlink-like Constellation
+%---------------------------------------------------
+
+% Configure the GMAT mission
+Create MissionSequence DefaultSequence;
+
+% Create the Earth as the central body
+Create CelestialBody Earth;
+
+% Define the number of planes and satellites per plane
+NumberOfPlanes = 6;
+SatsPerPlane = 20;
+
+% Define orbital parameters for the constellation
+SemiMajorAxis = 6928; % in km (approx 550 km altitude)
+Eccentricity = 0.0001;
+Inclination = 53.0; % in degrees
+RAANIncrement = 360.0 / NumberOfPlanes; % Right Ascension of the Ascending Node increment per plane
+TrueAnomalyIncrement = 360.0 / SatsPerPlane; % True Anomaly increment per satellite
+
+% Create the spacecraft for each plane and satellite
+For i = 0:NumberOfPlanes-1
+    For j = 0:SatsPerPlane-1
+        Create Spacecraft Sat{(i*SatsPerPlane) + j + 1};
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.DateFormat = UTCGregorian;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.Epoch = '2025-02-05 04:37:12';
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.CoordinateSystem = EarthMJ2000Eq;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.SMA = SemiMajorAxis;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.ECC = Eccentricity;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.INC = Inclination;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.RAAN = i * RAANIncrement;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.AOP = 0.0;
+        GMAT Sat{(i*SatsPerPlane) + j + 1}.TA = j * TrueAnomalyIncrement;
+    EndFor
+EndFor
+
+% Configure the mission sequence to propagate the spacecraft
+For i = 0:NumberOfPlanes-1
+    For j = 0:SatsPerPlane-1
+        Create Propagator Prop{(i*SatsPerPlane) + j + 1};
+        GMAT Prop{(i*SatsPerPlane) + j + 1}.Type = RungeKutta89;
+        GMAT Prop{(i*SatsPerPlane) + j + 1}.Spacecraft = {Sat{(i*SatsPerPlane) + j + 1}};
+        
+        Create BeginFiniteBurn BeginBurn{(i*SatsPerPlane) + j + 1};
+        GMAT BeginBurn{(i*SatsPerPlane) + j + 1}.Spacecraft = {Sat{(i*SatsPerPlane) + j + 1}};
+        GMAT BeginBurn{(i*SatsPerPlane) + j + 1}.Propagator = Prop{(i*SatsPerPlane) + j + 1};
+        
+        Create EndFiniteBurn EndBurn{(i*SatsPerPlane) + j + 1};
+        GMAT EndBurn{(i*SatsPerPlane) + j + 1}.Spacecraft = {Sat{(i*SatsPerPlane) + j + 1}};
+        GMAT EndBurn{(i*SatsPerPlane) + j + 1}.Propagator = Prop{(i*SatsPerPlane) + j + 1};
+        
+        GMAT DefaultSequence.AddCommand(BeginBurn{(i*SatsPerPlane) + j + 1});
+        GMAT DefaultSequence.AddCommand(Prop{(i*SatsPerPlane) + j + 1});
+        GMAT DefaultSequence.AddCommand(EndBurn{(i*SatsPerPlane) + j + 1});
+    EndFor
+EndFor
+
+% Run the mission
+GMAT DefaultSequence.Run();
