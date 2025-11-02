@@ -1,0 +1,268 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SpacecraftNavigation_SolveFors_CartesianState_GpsPosVec_6SatConstellation
+% - 6 simulated satellites (SimSat1..SimSat6)
+% - GPS PosVec measurement simulation (SimMeas -> .gmd)
+% - Estimation spacecraft EstSat1 with SolveFors = {CartesianState}
+% - Batch Least Squares (BLS) estimator using the simulated GPS_PosVec
+% - OrbitView for 3D visualization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------
+% 1) GPS Hardware
+%----------------------------------------------------------------------
+Create Antenna    GpsAntenna;
+Create Receiver   GpsReceiver;
+
+Create ErrorModel PosVecModel;
+PosVecModel.Type       = 'GPS_PosVec';
+PosVecModel.NoiseSigma = 0.010;
+
+GpsReceiver.PrimaryAntenna = GpsAntenna;
+GpsReceiver.Id             = 800;
+GpsReceiver.ErrorModels    = {PosVecModel};
+
+%----------------------------------------------------------------------
+% 2) Simulated constellation spacecraft (SimSat1..SimSat6)
+%----------------------------------------------------------------------
+% -- SimSat1
+Create Spacecraft SimSat1;
+SimSat1.DateFormat         = UTCGregorian;
+SimSat1.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat1.CoordinateSystem   = EarthMJ2000Eq;
+SimSat1.DisplayStateType   = Cartesian;
+SimSat1.X                  = -6429.439955;
+SimSat1.Y                  = 2874.907490;
+SimSat1.Z                  = -762.976473;
+SimSat1.VX                 = -0.280992;
+SimSat1.VY                 = 1.308479;
+SimSat1.VZ                 = 7.382127;
+SimSat1.DryMass            = 2937;
+SimSat1.Cd                 = 2.2;
+SimSat1.Cr                 = 1.5;
+SimSat1.DragArea           = 47.95;
+SimSat1.SRPArea            = 4700.95;
+SimSat1.Id                 = 1874;
+SimSat1.AddHardware        = {GpsReceiver, GpsAntenna};
+
+% -- SimSat2
+Create Spacecraft SimSat2;
+SimSat2.DateFormat         = UTCGregorian;
+SimSat2.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat2.CoordinateSystem   = EarthMJ2000Eq;
+SimSat2.DisplayStateType   = Cartesian;
+SimSat2.X                  = -3500;
+SimSat2.Y                  = 6062.177826491;
+SimSat2.Z                  = 0;
+SimSat2.VX                 = -6.495190528383;
+SimSat2.VY                 = -3.75;
+SimSat2.VZ                 = 0.1;
+SimSat2.DryMass            = 2937;
+SimSat2.Cd                 = 2.2;
+SimSat2.Cr                 = 1.5;
+SimSat2.DragArea           = 47.95;
+SimSat2.SRPArea            = 4700.95;
+SimSat2.Id                 = 1875;
+SimSat2.AddHardware        = {GpsReceiver, GpsAntenna};
+
+% -- SimSat3
+Create Spacecraft SimSat3;
+SimSat3.DateFormat         = UTCGregorian;
+SimSat3.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat3.CoordinateSystem   = EarthMJ2000Eq;
+SimSat3.DisplayStateType   = Cartesian;
+SimSat3.X                  = -3500;
+SimSat3.Y                  = -6062.177826491;
+SimSat3.Z                  = 0;
+SimSat3.VX                 = 6.495190528383;
+SimSat3.VY                 = -3.75;
+SimSat3.VZ                 = 0.1;
+SimSat3.DryMass            = 2937;
+SimSat3.Cd                 = 2.2;
+SimSat3.Cr                 = 1.5;
+SimSat3.DragArea           = 47.95;
+SimSat3.SRPArea            = 4700.95;
+SimSat3.Id                 = 1876;
+SimSat3.AddHardware        = {GpsReceiver, GpsAntenna};
+
+% -- SimSat4
+Create Spacecraft SimSat4;
+SimSat4.DateFormat         = UTCGregorian;
+SimSat4.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat4.CoordinateSystem   = EarthMJ2000Eq;
+SimSat4.DisplayStateType   = Cartesian;
+SimSat4.X                  = 4949.747468305833;
+SimSat4.Y                  = 4949.747468305833;
+SimSat4.Z                  = 3500;
+SimSat4.VX                 = -5.303300858899;
+SimSat4.VY                 = 5.303300858899;
+SimSat4.VZ                 = 0.2;
+SimSat4.DryMass            = 2937;
+SimSat4.Cd                 = 2.2;
+SimSat4.Cr                 = 1.5;
+SimSat4.DragArea           = 47.95;
+SimSat4.SRPArea            = 4700.95;
+SimSat4.Id                 = 1877;
+SimSat4.AddHardware        = {GpsReceiver, GpsAntenna};
+
+% -- SimSat5
+Create Spacecraft SimSat5;
+SimSat5.DateFormat         = UTCGregorian;
+SimSat5.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat5.CoordinateSystem   = EarthMJ2000Eq;
+SimSat5.DisplayStateType   = Cartesian;
+SimSat5.X                  = -4949.747468305833;
+SimSat5.Y                  = -4949.747468305833;
+SimSat5.Z                  = 3500;
+SimSat5.VX                 = 5.303300858899;
+SimSat5.VY                 = -5.303300858899;
+SimSat5.VZ                 = 0.2;
+SimSat5.DryMass            = 2937;
+SimSat5.Cd                 = 2.2;
+SimSat5.Cr                 = 1.5;
+SimSat5.DragArea           = 47.95;
+SimSat5.SRPArea            = 4700.95;
+SimSat5.Id                 = 1878;
+SimSat5.AddHardware        = {GpsReceiver, GpsAntenna};
+
+% -- SimSat6
+Create Spacecraft SimSat6;
+SimSat6.DateFormat         = UTCGregorian;
+SimSat6.Epoch              = '3 Aug 2010 00:00:00.000';
+SimSat6.CoordinateSystem   = EarthMJ2000Eq;
+SimSat6.DisplayStateType   = Cartesian;
+SimSat6.X                  = 0;
+SimSat6.Y                  = 0;
+SimSat6.Z                  = 7000;
+SimSat6.VX                 = 7.5;
+SimSat6.VY                 = 0;
+SimSat6.VZ                 = 0;
+SimSat6.DryMass            = 2937;
+SimSat6.Cd                 = 2.2;
+SimSat6.Cr                 = 1.5;
+SimSat6.DragArea           = 47.95;
+SimSat6.SRPArea            = 4700.95;
+SimSat6.Id                 = 1879;
+SimSat6.AddHardware        = {GpsReceiver, GpsAntenna};
+
+%----------------------------------------------------------------------
+% 3) Estimation spacecraft (has SolveFors) - clone/initial guess for SimSat1
+%----------------------------------------------------------------------
+Create Spacecraft EstSat1;
+EstSat1.DateFormat         = UTCGregorian;
+EstSat1.Epoch              = '3 Aug 2010 00:00:00.000';
+EstSat1.CoordinateSystem   = EarthMJ2000Eq;
+EstSat1.DisplayStateType   = Cartesian;
+EstSat1.X                  = -6429.44;
+EstSat1.Y                  = 2874.907;
+EstSat1.Z                  = -762.976;
+EstSat1.VX                 = -0.280992;
+EstSat1.VY                 = 1.308479;
+EstSat1.VZ                 = 7.382127;
+EstSat1.DryMass            = 2937;
+EstSat1.Cd                 = 2.2;
+EstSat1.Cr                 = 1.5;
+EstSat1.DragArea           = 47.95;
+EstSat1.SRPArea            = 4700.95;
+EstSat1.Id                 = 3001;
+EstSat1.AddHardware        = {GpsReceiver, GpsAntenna};
+EstSat1.SolveFors          = {CartesianState};         % <<-- REQUIRED for estimator
+
+%----------------------------------------------------------------------
+% 4) Force model & propagator (used for simulation & estimation)
+%----------------------------------------------------------------------
+Create ForceModel Fm;
+Fm.CentralBody          = Earth;
+Fm.PrimaryBodies        = {Earth};
+Fm.SRP                  = Off;
+Fm.Drag.AtmosphereModel = None;
+Fm.ErrorControl         = None;
+
+Create Propagator Prop;
+Prop.FM                 = Fm;
+Prop.Type               = RungeKutta89;
+Prop.InitialStepSize    = 60;
+Prop.Accuracy           = 1e-13;
+Prop.MinStep            = 0;
+Prop.MaxStep            = 60;
+Prop.MaxStepAttempts    = 50;
+
+%----------------------------------------------------------------------
+% 5) Tracking file sets (simulate measurements using SimSat1 receiver)
+%    and use those measurements for EstSat1 in the estimator.
+%----------------------------------------------------------------------
+Create TrackingFileSet SimMeas;
+SimMeas.FileName           = {'SpacecraftNavigation_SolveFors_CartesianState_GpsPosVec.gmd'};
+SimMeas.AddTrackingConfig  = {{SimSat1.GpsReceiver}, 'GPS_PosVec'};
+SimMeas.RampTable          = {};
+SimMeas.UseLightTime       = True;
+SimMeas.UseRelativityCorrection = False;
+SimMeas.UseETminusTAI     = False;
+SimMeas.DataFilters       = {};
+
+Create TrackingFileSet EstMeas;
+EstMeas.FileName           = {'SpacecraftNavigation_SolveFors_CartesianState_GpsPosVec.gmd'};
+EstMeas.AddTrackingConfig  = {{EstSat1.GpsReceiver}, 'GPS_PosVec'};  % estimator uses same file
+EstMeas.RampTable          = {};
+EstMeas.UseLightTime       = True;
+EstMeas.UseRelativityCorrection = False;
+EstMeas.UseETminusTAI     = False;
+EstMeas.DataFilters       = {};
+
+%----------------------------------------------------------------------
+% 6) Batch Least Squares Estimator (BLS)
+%----------------------------------------------------------------------
+Create BatchEstimator Bls;
+Bls.ShowProgress                = True;
+Bls.Measurements                = {EstMeas};
+Bls.Propagator                  = Prop;
+Bls.AbsoluteTol                 = 1e-4;
+Bls.RelativeTol                 = 5e-4;
+Bls.MaximumIterations           = 10;
+Bls.MaxConsecutiveDivergences   = 4;
+Bls.ShowAllResiduals            = On;
+Bls.OLSEInitialRMSSigma         = 3000;
+Bls.OLSEMultiplicativeConstant  = 3;
+Bls.OLSEAdditiveConstant        = 0;
+Bls.InversionAlgorithm          = 'Internal';
+Bls.EstimationEpochFormat       = 'FromParticipants';
+Bls.EstimationEpoch             = 'FromParticipants';
+Bls.ReportStyle                 = 'Normal';
+Bls.ReportFile                  = 'SpacecraftNavigation_SolveFors_CartesianState_GpsPosVec.txt';
+
+%----------------------------------------------------------------------
+% 7) Simulator (generates the .gmd using SimMeas)
+%----------------------------------------------------------------------
+Create Simulator Sim;
+Sim.AddData             = {SimMeas};
+Sim.Propagator          = Prop;
+Sim.EpochFormat         = 'UTCGregorian';
+Sim.InitialEpoch        = '03 Aug 2010 00:00:00.000';
+Sim.FinalEpoch          = '04 Aug 2010 12:00:00.000';
+Sim.MeasurementTimeStep = 60;
+Sim.AddNoise            = On;
+
+%----------------------------------------------------------------------
+% 8) OrbitView visualization
+%----------------------------------------------------------------------
+Create OrbitView a3Dplot;
+a3Dplot.Add               = {SimSat1, SimSat2, SimSat3, SimSat4, SimSat5, SimSat6, Earth};
+a3Dplot.CoordinateSystem  = EarthMJ2000Eq;
+a3Dplot.ShowPlot          = true;
+a3Dplot.ShowLabels        = true;
+a3Dplot.ViewPointReference= Earth;
+a3Dplot.ViewPointVector   = [30000, -20000, 15000];
+a3Dplot.ViewScaleFactor   = 1;
+a3Dplot.EnableStars       = On;
+a3Dplot.EnableConstellations = On;
+a3Dplot.StarCount         = 7000;
+
+%----------------------------------------------------------------------
+% 9) Mission Sequence: run simulation (writes .gmd) then estimate
+%----------------------------------------------------------------------
+BeginMissionSequence;
+    % 1) Generate simulated GPS_PosVec measurements from SimSat1
+    RunSimulator Sim;
+
+    % 2) Now run the Batch Estimator using EstSat1.SolveFors and the generated .gmd
+    RunEstimator Bls;
+
