@@ -1,0 +1,252 @@
+%------------------------------------------------------
+% Script: Starlink Constellation with GPS Simulation
+%------------------------------------------------------
+
+%----------------------------------------
+%---------- Spacecraft Setup: Starlink
+%----------------------------------------
+
+% Satellite 1
+Create Spacecraft Sat1;
+GMAT Sat1.DateFormat = TAIModJulian;
+GMAT Sat1.Epoch = '21545';
+GMAT Sat1.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat1.DisplayStateType = Cartesian;
+GMAT Sat1.X = 7000;
+GMAT Sat1.Y = 0;
+GMAT Sat1.Z = 0;
+GMAT Sat1.VX = 0;
+GMAT Sat1.VY = 7.5;
+GMAT Sat1.VZ = 0.1;
+GMAT Sat1.DryMass = 260;
+GMAT Sat1.Cd = 2.5;
+GMAT Sat1.Cr = 1.9;
+GMAT Sat1.DragArea = 2.5;
+GMAT Sat1.SRPArea = 1;
+GMAT Sat1.SPADDragScaleFactor = 1;
+GMAT Sat1.SPADSRPScaleFactor = 1;
+GMAT Sat1.NAIFId = -10811001;
+GMAT Sat1.NAIFIdReferenceFrame = -9811001;
+GMAT Sat1.OrbitColor = Red;
+GMAT Sat1.TargetColor = Teal;
+GMAT Sat1.Attitude = CoordinateSystemFixed;
+GMAT Sat1.ModelFile = 'aura.3ds';
+
+% Satellite 2
+Create Spacecraft Sat2;
+GMAT Sat2.DateFormat = TAIModJulian;
+GMAT Sat2.Epoch = '21545';
+GMAT Sat2.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat2.DisplayStateType = Cartesian;
+GMAT Sat2.X = -3500;
+GMAT Sat2.Y = 6062.177826491;
+GMAT Sat2.Z = 0;
+GMAT Sat2.VX = -6.495190528383;
+GMAT Sat2.VY = -3.75;
+GMAT Sat2.VZ = 0.1;
+GMAT Sat2.DryMass = 260;
+GMAT Sat2.Cd = 2.5;
+GMAT Sat2.Cr = 1.9;
+GMAT Sat2.DragArea = 2.5;
+GMAT Sat2.SRPArea = 1;
+GMAT Sat2.SPADDragScaleFactor = 1;
+GMAT Sat2.SPADSRPScaleFactor = 1;
+GMAT Sat2.NAIFId = -10812001;
+GMAT Sat2.NAIFIdReferenceFrame = -9812001;
+GMAT Sat2.OrbitColor = Green;
+GMAT Sat2.TargetColor = LightGray;
+GMAT Sat2.Attitude = CoordinateSystemFixed;
+GMAT Sat2.ModelFile = 'aura.3ds';
+
+% Satellite 3
+Create Spacecraft Sat3;
+GMAT Sat3.DateFormat = TAIModJulian;
+GMAT Sat3.Epoch = '21545';
+GMAT Sat3.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat3.DisplayStateType = Cartesian;
+GMAT Sat3.X = -3500;
+GMAT Sat3.Y = -6062.177826491;
+GMAT Sat3.Z = 0;
+GMAT Sat3.VX = 6.495190528383;
+GMAT Sat3.VY = -3.75;
+GMAT Sat3.VZ = 0.1;
+GMAT Sat3.DryMass = 260;
+GMAT Sat3.Cd = 2.5;
+GMAT Sat3.Cr = 1.9;
+GMAT Sat3.DragArea = 2.5;
+GMAT Sat3.SRPArea = 1;
+GMAT Sat3.SPADDragScaleFactor = 1;
+GMAT Sat3.SPADSRPScaleFactor = 1;
+GMAT Sat3.NAIFId = -10813001;
+GMAT Sat3.NAIFIdReferenceFrame = -9813001;
+GMAT Sat3.OrbitColor = Yellow;
+GMAT Sat3.TargetColor = DarkGray;
+GMAT Sat3.Attitude = CoordinateSystemFixed;
+GMAT Sat3.ModelFile = 'aura.3ds';
+
+% Satellite 4
+Create Spacecraft Sat4;
+GMAT Sat4.DateFormat = TAIModJulian;
+GMAT Sat4.Epoch = '21545';
+GMAT Sat4.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat4.DisplayStateType = Cartesian;
+GMAT Sat4.X = 4949.747468305833;
+GMAT Sat4.Y = 4949.747468305833;
+GMAT Sat4.Z = 3500;
+GMAT Sat4.VX = -5.303300858899;
+GMAT Sat4.VY = 5.303300858899;
+GMAT Sat4.VZ = 0.2;
+GMAT Sat4.DryMass = 260;
+GMAT Sat4.Cd = 2.5;
+GMAT Sat4.Cr = 1.9;
+GMAT Sat4.DragArea = 2.5;
+GMAT Sat4.SRPArea = 1;
+GMAT Sat4.SPADDragScaleFactor = 1;
+GMAT Sat4.SPADSRPScaleFactor = 1;
+GMAT Sat4.NAIFId = -10814001;
+GMAT Sat4.NAIFIdReferenceFrame = -9814001;
+GMAT Sat4.OrbitColor = Blue;
+GMAT Sat4.TargetColor = DimGray;
+GMAT Sat4.Attitude = CoordinateSystemFixed;
+GMAT Sat4.ModelFile = 'aura.3ds';
+
+% Satellite 5
+Create Spacecraft Sat5;
+GMAT Sat5.DateFormat = TAIModJulian;
+GMAT Sat5.Epoch = '21545';
+GMAT Sat5.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat5.DisplayStateType = Cartesian;
+GMAT Sat5.X = -4949.747468305833;
+GMAT Sat5.Y = -4949.747468305833;
+GMAT Sat5.Z = 3500;
+GMAT Sat5.VX = 5.303300858899;
+GMAT Sat5.VY = -5.303300858899;
+GMAT Sat5.VZ = 0.2;
+GMAT Sat5.DryMass = 260;
+GMAT Sat5.Cd = 2.5;
+GMAT Sat5.Cr = 1.9;
+GMAT Sat5.DragArea = 2.5;
+GMAT Sat5.SRPArea = 1;
+GMAT Sat5.SPADDragScaleFactor = 1;
+GMAT Sat5.SPADSRPScaleFactor = 1;
+GMAT Sat5.NAIFId = -10815001;
+GMAT Sat5.NAIFIdReferenceFrame = -9815001;
+GMAT Sat5.OrbitColor = Pink;
+GMAT Sat5.TargetColor = DarkSlateGray;
+GMAT Sat5.Attitude = CoordinateSystemFixed;
+GMAT Sat5.ModelFile = 'aura.3ds';
+
+% Satellite 6
+Create Spacecraft Sat6;
+GMAT Sat6.DateFormat = TAIModJulian;
+GMAT Sat6.Epoch = '21545';
+GMAT Sat6.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat6.DisplayStateType = Cartesian;
+GMAT Sat6.X = 0;
+GMAT Sat6.Y = 0;
+GMAT Sat6.Z = 7000;
+GMAT Sat6.VX = 7.5;
+GMAT Sat6.VY = 0;
+GMAT Sat6.VZ = 0;
+GMAT Sat6.DryMass = 260;
+GMAT Sat6.Cd = 2.5;
+GMAT Sat6.Cr = 1.9;
+GMAT Sat6.DragArea = 2.5;
+GMAT Sat6.SRPArea = 1;
+GMAT Sat6.SPADDragScaleFactor = 1;
+GMAT Sat6.SPADSRPScaleFactor = 1;
+GMAT Sat6.NAIFId = -10816001;
+GMAT Sat6.NAIFIdReferenceFrame = -9816001;
+GMAT Sat6.OrbitColor = Lime;
+GMAT Sat6.TargetColor = LightGray;
+GMAT Sat6.Attitude = CoordinateSystemFixed;
+GMAT Sat6.ModelFile = 'aura.3ds';
+
+%----------------------------------------
+%---------- GPS Constellation Setup
+%----------------------------------------
+
+Create Antenna GPSAntenna;
+Create Receiver GPSReceiver;
+GMAT GPSReceiver.PrimaryAntenna = GPSAntenna;
+
+Create ErrorModel GPS_PosVec;
+GMAT GPS_PosVec.Type = GPS_PosVec;
+GMAT GPS_PosVec.NoiseSigma = 0.010;
+GMAT GPSReceiver.ErrorModels = {GPS_PosVec};
+
+Create Spacecraft SimSat1;
+GMAT SimSat1.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat1.DateFormat = TAIModJulian;
+GMAT SimSat1.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat2;
+GMAT SimSat2.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat2.DateFormat = TAIModJulian;
+GMAT SimSat2.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat3;
+GMAT SimSat3.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat3.DateFormat = TAIModJulian;
+GMAT SimSat3.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat4;
+GMAT SimSat4.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat4.DateFormat = TAIModJulian;
+GMAT SimSat4.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat5;
+GMAT SimSat5.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat5.DateFormat = TAIModJulian;
+GMAT SimSat5.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat6;
+GMAT SimSat6.CoordinateSystem = EarthMJ2000Eq;
+GMAT SimSat6.DateFormat = TAIModJulian;
+GMAT SimSat6.AddHardware = {GPSReceiver,GPSAntenna};
+
+%----------------------------------------
+%---------- Force Model and Propagator
+%----------------------------------------
+
+Create ForceModel FM_Earth;
+GMAT FM_Earth.CentralBody = Earth;
+GMAT FM_Earth.PointMasses = {Earth, Sun};  % Moon removed
+GMAT FM_Earth.Drag = None;
+GMAT FM_Earth.SRP = Off;
+GMAT FM_Earth.ErrorControl = RSSStep;
+
+Create Propagator PropRK;
+GMAT PropRK.Type = RungeKutta89;
+GMAT PropRK.FM = FM_Earth;
+GMAT PropRK.InitialStepSize = 60;
+GMAT PropRK.Accuracy = 1e-10;
+GMAT PropRK.MinStep = 0.1;
+GMAT PropRK.MaxStep = 300;
+
+%----------------------------------------
+%---------- Orbit Visualization
+%----------------------------------------
+Create OrbitView Orbit3D;
+GMAT Orbit3D.Add = {Sat1,Sat2,Sat3,Sat4,Sat5,Sat6,SimSat1,SimSat2,SimSat3,SimSat4,SimSat5,SimSat6,Earth};
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+BeginMissionSequence;
+
+Propagate PropRK(Sat1) {Sat1.ElapsedSecs = 86400};
+Propagate PropRK(Sat2) {Sat2.ElapsedSecs = 86400};
+Propagate PropRK(Sat3) {Sat3.ElapsedSecs = 86400};
+Propagate PropRK(Sat4) {Sat4.ElapsedSecs = 86400};
+Propagate PropRK(Sat5) {Sat5.ElapsedSecs = 86400};
+Propagate PropRK(Sat6) {Sat6.ElapsedSecs = 86400};
+
+Propagate PropRK(SimSat1) {SimSat1.ElapsedSecs = 86400};
+Propagate PropRK(SimSat2) {SimSat2.ElapsedSecs = 86400};
+Propagate PropRK(SimSat3) {SimSat3.ElapsedSecs = 86400};
+Propagate PropRK(SimSat4) {SimSat4.ElapsedSecs = 86400};
+Propagate PropRK(SimSat5) {SimSat5.ElapsedSecs = 86400};
+Propagate PropRK(SimSat6) {SimSat6.ElapsedSecs = 86400};
+
+
