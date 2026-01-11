@@ -154,6 +154,11 @@ Create Formation Constellation;
 GMAT Constellation.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6};
 
 %------------------------------------------------------
+% Inter-Satellite Communications (ICOM) Configuration
+%------------------------------------------------------
+#Include 'icom_sat';
+
+%------------------------------------------------------
 % Visualization Setup
 %------------------------------------------------------
 

@@ -337,6 +337,11 @@ GMAT Sat7.EulerAngleSequence = '321';
 % Define Ground Station Antenna
 Create Antenna GS_Antenna;
 
+%------------------------------------------------------
+% Inter-Satellite Communications (ICOM) Configuration
+%------------------------------------------------------
+#Include 'icom_sat';
+
 %----------------------------------------
 %---------- Formation
 %----------------------------------------

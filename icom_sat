@@ -1,0 +1,251 @@
+%------------------------------------------------------
+% Script: Inter-Satellite Communications (ICOM) Configuration
+% Description: Adds inter-satellite communication transceivers and links
+%              to the Starlink constellation for network connectivity
+%------------------------------------------------------
+
+%----------------------------------------
+%---------- Communication Hardware
+%----------------------------------------
+
+% Create Inter-Satellite Transceiver for Sat1
+Create Transceiver Sat1_ISL_Transceiver;
+GMAT Sat1_ISL_Transceiver.Frequency = 32e9;        % Ka-band frequency (32 GHz) for ISL
+GMAT Sat1_ISL_Transceiver.BandwidthHz = 1e9;       % 1 GHz bandwidth
+GMAT Sat1_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat1_ISL_Transceiver.PowerW = 10;             % 10W transmit power
+GMAT Sat1_ISL_Transceiver.NoiseTemperature = 290;  % 290K noise temperature
+GMAT Sat1_ISL_Transceiver.RequiredEbNo = 3;        % 3 dB Eb/N0 for communication
+
+% Create Inter-Satellite Transceiver for Sat2
+Create Transceiver Sat2_ISL_Transceiver;
+GMAT Sat2_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat2_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat2_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat2_ISL_Transceiver.PowerW = 10;
+GMAT Sat2_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat2_ISL_Transceiver.RequiredEbNo = 3;
+
+% Create Inter-Satellite Transceiver for Sat3
+Create Transceiver Sat3_ISL_Transceiver;
+GMAT Sat3_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat3_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat3_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat3_ISL_Transceiver.PowerW = 10;
+GMAT Sat3_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat3_ISL_Transceiver.RequiredEbNo = 3;
+
+% Create Inter-Satellite Transceiver for Sat4
+Create Transceiver Sat4_ISL_Transceiver;
+GMAT Sat4_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat4_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat4_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat4_ISL_Transceiver.PowerW = 10;
+GMAT Sat4_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat4_ISL_Transceiver.RequiredEbNo = 3;
+
+% Create Inter-Satellite Transceiver for Sat5
+Create Transceiver Sat5_ISL_Transceiver;
+GMAT Sat5_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat5_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat5_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat5_ISL_Transceiver.PowerW = 10;
+GMAT Sat5_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat5_ISL_Transceiver.RequiredEbNo = 3;
+
+% Create Inter-Satellite Transceiver for Sat6
+Create Transceiver Sat6_ISL_Transceiver;
+GMAT Sat6_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat6_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat6_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat6_ISL_Transceiver.PowerW = 10;
+GMAT Sat6_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat6_ISL_Transceiver.RequiredEbNo = 3;
+
+% Create Inter-Satellite Transceiver for Sat7
+Create Transceiver Sat7_ISL_Transceiver;
+GMAT Sat7_ISL_Transceiver.Frequency = 32e9;
+GMAT Sat7_ISL_Transceiver.BandwidthHz = 1e9;
+GMAT Sat7_ISL_Transceiver.PolarizationType = 'Right';
+GMAT Sat7_ISL_Transceiver.PowerW = 10;
+GMAT Sat7_ISL_Transceiver.NoiseTemperature = 290;
+GMAT Sat7_ISL_Transceiver.RequiredEbNo = 3;
+
+%----------------------------------------
+%---------- ISL Antenna Arrays
+%----------------------------------------
+
+% Create phased array antenna for ISL (forward link)
+Create Antenna Sat1_ISL_Antenna;
+GMAT Sat1_ISL_Antenna.DirectionX = 1;
+GMAT Sat1_ISL_Antenna.DirectionY = 0;
+GMAT Sat1_ISL_Antenna.DirectionZ = 0;
+GMAT Sat1_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat1_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat1_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat1_ISL_Antenna.Frequency = 32e9;
+GMAT Sat1_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat1_ISL_Antenna.GainConstant = 40;          % 40 dBi antenna gain
+
+Create Antenna Sat2_ISL_Antenna;
+GMAT Sat2_ISL_Antenna.DirectionX = 1;
+GMAT Sat2_ISL_Antenna.DirectionY = 0;
+GMAT Sat2_ISL_Antenna.DirectionZ = 0;
+GMAT Sat2_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat2_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat2_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat2_ISL_Antenna.Frequency = 32e9;
+GMAT Sat2_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat2_ISL_Antenna.GainConstant = 40;
+
+Create Antenna Sat3_ISL_Antenna;
+GMAT Sat3_ISL_Antenna.DirectionX = 1;
+GMAT Sat3_ISL_Antenna.DirectionY = 0;
+GMAT Sat3_ISL_Antenna.DirectionZ = 0;
+GMAT Sat3_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat3_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat3_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat3_ISL_Antenna.Frequency = 32e9;
+GMAT Sat3_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat3_ISL_Antenna.GainConstant = 40;
+
+Create Antenna Sat4_ISL_Antenna;
+GMAT Sat4_ISL_Antenna.DirectionX = 1;
+GMAT Sat4_ISL_Antenna.DirectionY = 0;
+GMAT Sat4_ISL_Antenna.DirectionZ = 0;
+GMAT Sat4_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat4_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat4_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat4_ISL_Antenna.Frequency = 32e9;
+GMAT Sat4_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat4_ISL_Antenna.GainConstant = 40;
+
+Create Antenna Sat5_ISL_Antenna;
+GMAT Sat5_ISL_Antenna.DirectionX = 1;
+GMAT Sat5_ISL_Antenna.DirectionY = 0;
+GMAT Sat5_ISL_Antenna.DirectionZ = 0;
+GMAT Sat5_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat5_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat5_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat5_ISL_Antenna.Frequency = 32e9;
+GMAT Sat5_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat5_ISL_Antenna.GainConstant = 40;
+
+Create Antenna Sat6_ISL_Antenna;
+GMAT Sat6_ISL_Antenna.DirectionX = 1;
+GMAT Sat6_ISL_Antenna.DirectionY = 0;
+GMAT Sat6_ISL_Antenna.DirectionZ = 0;
+GMAT Sat6_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat6_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat6_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat6_ISL_Antenna.Frequency = 32e9;
+GMAT Sat6_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat6_ISL_Antenna.GainConstant = 40;
+
+Create Antenna Sat7_ISL_Antenna;
+GMAT Sat7_ISL_Antenna.DirectionX = 1;
+GMAT Sat7_ISL_Antenna.DirectionY = 0;
+GMAT Sat7_ISL_Antenna.DirectionZ = 0;
+GMAT Sat7_ISL_Antenna.SecondaryDirectionX = 0;
+GMAT Sat7_ISL_Antenna.SecondaryDirectionY = 1;
+GMAT Sat7_ISL_Antenna.SecondaryDirectionZ = 0;
+GMAT Sat7_ISL_Antenna.Frequency = 32e9;
+GMAT Sat7_ISL_Antenna.GainFunction = Gaussian;
+GMAT Sat7_ISL_Antenna.GainConstant = 40;
+
+%----------------------------------------
+%---------- Inter-Satellite Links (ISL)
+%----------------------------------------
+
+% ISL between Sat1 and Sat2 (adjacent orbit plane satellites)
+Create Link Sat1_to_Sat2_ISL;
+GMAT Sat1_to_Sat2_ISL.Transmitter = Sat1_ISL_Transceiver;
+GMAT Sat1_to_Sat2_ISL.Receiver = Sat2_ISL_Transceiver;
+GMAT Sat1_to_Sat2_ISL.TransmitAntenna = Sat1_ISL_Antenna;
+GMAT Sat1_to_Sat2_ISL.ReceiveAntenna = Sat2_ISL_Antenna;
+
+% ISL between Sat2 and Sat3
+Create Link Sat2_to_Sat3_ISL;
+GMAT Sat2_to_Sat3_ISL.Transmitter = Sat2_ISL_Transceiver;
+GMAT Sat2_to_Sat3_ISL.Receiver = Sat3_ISL_Transceiver;
+GMAT Sat2_to_Sat3_ISL.TransmitAntenna = Sat2_ISL_Antenna;
+GMAT Sat2_to_Sat3_ISL.ReceiveAntenna = Sat3_ISL_Antenna;
+
+% ISL between Sat3 and Sat1 (forms triangle in orbital plane)
+Create Link Sat3_to_Sat1_ISL;
+GMAT Sat3_to_Sat1_ISL.Transmitter = Sat3_ISL_Transceiver;
+GMAT Sat3_to_Sat1_ISL.Receiver = Sat1_ISL_Transceiver;
+GMAT Sat3_to_Sat1_ISL.TransmitAntenna = Sat3_ISL_Antenna;
+GMAT Sat3_to_Sat1_ISL.ReceiveAntenna = Sat1_ISL_Antenna;
+
+% ISL between Sat4 and Sat5
+Create Link Sat4_to_Sat5_ISL;
+GMAT Sat4_to_Sat5_ISL.Transmitter = Sat4_ISL_Transceiver;
+GMAT Sat4_to_Sat5_ISL.Receiver = Sat5_ISL_Transceiver;
+GMAT Sat4_to_Sat5_ISL.TransmitAntenna = Sat4_ISL_Antenna;
+GMAT Sat4_to_Sat5_ISL.ReceiveAntenna = Sat5_ISL_Antenna;
+
+% ISL between Sat5 and Sat6
+Create Link Sat5_to_Sat6_ISL;
+GMAT Sat5_to_Sat6_ISL.Transmitter = Sat5_ISL_Transceiver;
+GMAT Sat5_to_Sat6_ISL.Receiver = Sat6_ISL_Transceiver;
+GMAT Sat5_to_Sat6_ISL.TransmitAntenna = Sat5_ISL_Antenna;
+GMAT Sat5_to_Sat6_ISL.ReceiveAntenna = Sat6_ISL_Antenna;
+
+% ISL between Sat6 and Sat4 (forms triangle)
+Create Link Sat6_to_Sat4_ISL;
+GMAT Sat6_to_Sat4_ISL.Transmitter = Sat6_ISL_Transceiver;
+GMAT Sat6_to_Sat4_ISL.Receiver = Sat4_ISL_Transceiver;
+GMAT Sat6_to_Sat4_ISL.TransmitAntenna = Sat6_ISL_Antenna;
+GMAT Sat6_to_Sat4_ISL.ReceiveAntenna = Sat4_ISL_Antenna;
+
+% ISL between orbital planes: Sat1 to Sat4 (inter-plane link)
+Create Link Sat1_to_Sat4_ISL;
+GMAT Sat1_to_Sat4_ISL.Transmitter = Sat1_ISL_Transceiver;
+GMAT Sat1_to_Sat4_ISL.Receiver = Sat4_ISL_Transceiver;
+GMAT Sat1_to_Sat4_ISL.TransmitAntenna = Sat1_ISL_Antenna;
+GMAT Sat1_to_Sat4_ISL.ReceiveAntenna = Sat4_ISL_Antenna;
+
+% ISL between Sat7 and Sat1 (nadir pointing satellite to plane)
+Create Link Sat7_to_Sat1_ISL;
+GMAT Sat7_to_Sat1_ISL.Transmitter = Sat7_ISL_Transceiver;
+GMAT Sat7_to_Sat1_ISL.Receiver = Sat1_ISL_Transceiver;
+GMAT Sat7_to_Sat1_ISL.TransmitAntenna = Sat7_ISL_Antenna;
+GMAT Sat7_to_Sat1_ISL.ReceiveAntenna = Sat1_ISL_Antenna;
+
+%----------------------------------------
+%---------- ISL Network Configuration
+%----------------------------------------
+
+% Define ISL Network Formation
+Create Formation ISL_Network;
+GMAT ISL_Network.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6, Sat7};
+
+% ISL Link Status Monitoring
+% These links monitor inter-satellite connectivity and signal strength
+% Typical ISL characteristics:
+% - Frequency: Ka-band (32 GHz) for high data rate
+% - Range: Up to 1000 km between satellites
+% - Bandwidth: 1 GHz per link
+% - Minimum elevation angle between sats: 5 degrees
+% - Power consumption per transceiver: ~10W
+% - Total ISL network data capacity: 7 Gbps (1 Gbps per satellite)
+
+%----------------------------------------
+%---------- ISL Propagation Model
+%----------------------------------------
+
+% Path loss model for inter-satellite links
+% Free space path loss: PL(dB) = 20*log10(4*pi*R/lambda)
+% at 32 GHz with 1000 km range: ~160 dB
+% With 40 dBi TX/RX antennas: effective loss ~80 dB
+
+% Signal characteristics
+% Link margin: 20 dB (providing robust connection)
+% Modulation: QPSK (for 1 Gbps data rate)
+% Code rate: 7/8 convolutional code
+% Eb/N0 threshold: 3 dB
+
+%------------------------------------------------------
+% End of ICOM Configuration
+%------------------------------------------------------
