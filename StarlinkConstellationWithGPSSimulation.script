@@ -1,0 +1,949 @@
+%------------------------------------------------------
+
+% Script: Starlink Constellation with GPS Simulation
+
+%
+
+% PURPOSE: Sets up a 6-satellite Starlink-like constellation and 6 simulated
+
+% GPS-equipped spacecraft. Propagates the system for 1 day (86400 seconds).
+
+%
+
+% DYNAMIC DATA DISPLAY: Uses XYPlot for dynamic visualization and ReportFile
+
+% for output tracking. Includes setup for Covariance/Correlation reporting.
+
+%------------------------------------------------------
+
+% -------------------------
+
+% Define Ground Stations / Reference Points from GPX
+
+% -------------------------
+
+% Point A (west)
+
+Create GroundStation PointA;
+
+PointA.StateType = Spherical;
+
+PointA.Location1 = 60.79058;       % Latitude
+
+PointA.Location2 = -161.75509;     % Longitude
+
+PointA.Location3 = 0;               % Altitude in km
+
+% Point B (east)
+
+Create GroundStation PointB;
+
+PointB.StateType = Spherical;
+
+PointB.Location1 = 60.78194;       % Latitude
+
+PointB.Location2 = -161.67768;     % Longitude
+
+PointB.Location3 = 0;               % Altitude in km
+
+%--- SimSat1 - SimSat6 (GPS-equipped)
+
+Create Spacecraft SimSat1;
+
+SimSat1.CoordinateSystem = EarthMJ2000Eq;
+
+SimSat1.DateFormat = TAIModJulian;
+
+SimSat1.AddHardware = {GPSReceiver,GPSAntenna};
+
+% -------------------------
+
+% Optional: Route / Reference Line
+
+% -------------------------
+
+% GMAT doesn't directly plot GPX routes, but you can use XYPlot or OrbitView
+
+Create XYPlot GPX_RoutePlot;
+
+GPX_RoutePlot.Add = {PointA.X, PointA.Y, PointB.X, PointB.Y};
+
+GPX_RoutePlot.XVariable = PointA.X;  % Or use distance along path
+
+% -- SimSat1
+
+Create Transmitter LrcdTx_SimSat1;
+
+Create Receiver    LrcdRx_SimSat1;
+
+% -- SimSat2
+
+Create Transmitter LrcdTx_SimSat2;
+
+Create Receiver    LrcdRx_SimSat2;
+
+% -- SimSat3
+
+Create Transmitter LrcdTx_SimSat3;
+
+Create Receiver    LrcdRx_SimSat3;
+
+% -- SimSat4
+
+Create Transmitter LrcdTx_SimSat4;
+
+Create Receiver    LrcdRx_SimSat4;
+
+% -- SimSat5
+
+Create Transmitter LrcdTx_SimSat5;
+
+Create Receiver    LrcdRx_SimSat5;
+
+% -- SimSat6
+
+Create Transmitter LrcdTx_SimSat6;
+
+Create Receiver    LrcdRx_SimSat6;
+
+Create Transmitter LrcdTx;
+
+LrcdTx.Frequency       = 1.064;  % micron laser (Nd:YAG) GpsAntenna};
+
+Create CoordinateSystem earthInertial;
+
+Create CoordinateSystem CompareFrame;
+
+Create CoordinateSystem VNB;
+
+Create Transmitter LrcdTx;
+
+LrcdTx.DirectionX = 1;
+
+LrcdTx.DirectionY = 0;
+
+LrcdTx.DirectionZ = 0;
+
+LrcdTx.SecondDirectionX = 0;
+
+LrcdTx.SecondDirectionY = 1;
+
+LrcdTx.SecondDirectionZ = 0;
+
+LrcdTx.HWOriginInBCSX = 0;
+
+LrcdTx.HWOriginInBCSY = 0;
+
+LrcdTx.HWOriginInBCSZ = 0;
+
+LrcdTx.FieldOfView = UndefinedFieldOfView;
+
+LrcdTx.Frequency = 1.064;  % micron laser (Nd:YAG) GpsAntenna};
+
+LrcdTx.FrequencyBand = 'None';
+
+LrcdTx.FrequencyBias = [ 0 ];
+
+LrcdTx.FrequencyBiasSigma = [ 1e+70 ];
+
+LrcdTx.ReferenceEpoch = 'FromSpacecraft';
+
+LrcdTx.EpochFormat = 'TAIModJulian';
+
+Create Receiver LrcdRx;
+
+LrcdRx.DirectionX = 1;
+
+LrcdRx.DirectionY = 0;
+
+LrcdRx.DirectionZ = 0;
+
+LrcdRx.SecondDirectionX = 0;
+
+LrcdRx.SecondDirectionY = 1;
+
+LrcdRx.SecondDirectionZ = 0;
+
+LrcdRx.HWOriginInBCSX = 0;
+
+LrcdRx.HWOriginInBCSY = 0;
+
+LrcdRx.HWOriginInBCSZ = 0;
+
+LrcdRx.FieldOfView = UndefinedFieldOfView;
+
+LrcdRx.Id = '0';
+
+Create Antenna     GpsAntenna;
+
+Create Receiver    GpsReceiver;
+
+Create ErrorModel  PosVecModel;
+
+PosVecModel.Type       = 'GPS_PosVec';
+
+PosVecModel.NoiseSigma = 0.010;
+
+GpsReceiver.PrimaryAntenna = GpsAntenna;
+
+GpsReceiver.Id             = 800;
+
+GpsReceiver.ErrorModels    = {PosVecModel};
+
+%----------------------------------------
+
+%---------- Spacecraft Setup: Starlink (Sat1 - Sat6)
+
+%----------------------------------------
+
+% (Satellites 1 through 6 definitions are kept as provided)
+
+Create Spacecraft Sat1;
+
+GMAT Sat1.DateFormat = TAIModJulian;
+
+GMAT Sat1.Epoch = '21545';
+
+GMAT Sat1.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat1.DisplayStateType = Cartesian;
+
+GMAT Sat1.X = 7000;
+
+GMAT Sat1.Y = 0;
+
+GMAT Sat1.Z = 0;
+
+GMAT Sat1.VX = 0;
+
+GMAT Sat1.VY = 7.5;
+
+GMAT Sat1.VZ = 0.1;
+
+GMAT Sat1.DryMass = 260;
+
+GMAT Sat1.Cd = 2.5;
+
+GMAT Sat1.Cr = 1.9;
+
+GMAT Sat1.DragArea = 2.5;
+
+GMAT Sat1.SRPArea = 1;
+
+GMAT Sat1.SPADDragScaleFactor = 1;
+
+GMAT Sat1.SPADSRPScaleFactor = 1;
+
+GMAT Sat1.NAIFId = -10811001;
+
+GMAT Sat1.NAIFIdReferenceFrame = -9811001;
+
+GMAT Sat1.OrbitColor = Red;
+
+GMAT Sat1.TargetColor = Teal;
+
+GMAT Sat1.Attitude = CoordinateSystemFixed;
+
+GMAT Sat1.ModelFile = 'aura.3ds';
+
+Create Spacecraft Sat2;
+
+GMAT Sat2.DateFormat = TAIModJulian;
+
+GMAT Sat2.Epoch = '21545';
+
+GMAT Sat2.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat2.DisplayStateType = Cartesian;
+
+GMAT Sat2.X = -3500;
+
+GMAT Sat2.Y = 6062.177826491;
+
+GMAT Sat2.Z = 0;
+
+GMAT Sat2.VX = -6.495190528383;
+
+GMAT Sat2.VY = -3.75;
+
+GMAT Sat2.VZ = 0.1;
+
+GMAT Sat2.DryMass = 260;
+
+GMAT Sat2.Cd = 2.5;
+
+GMAT Sat2.Cr = 1.9;
+
+GMAT Sat2.DragArea = 2.5;
+
+GMAT Sat2.SRPArea = 1;
+
+GMAT Sat2.SPADDragScaleFactor = 1;
+
+GMAT Sat2.SPADSRPScaleFactor = 1;
+
+GMAT Sat2.NAIFId = -10812001;
+
+GMAT Sat2.NAIFIdReferenceFrame = -9812001;
+
+GMAT Sat2.OrbitColor = Green;
+
+GMAT Sat2.TargetColor = LightGray;
+
+GMAT Sat2.Attitude = CoordinateSystemFixed;
+
+GMAT Sat2.ModelFile = 'aura.3ds';
+
+Create Spacecraft Sat3;
+
+GMAT Sat3.DateFormat = TAIModJulian;
+
+GMAT Sat3.Epoch = '21545';
+
+GMAT Sat3.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat3.DisplayStateType = Cartesian;
+
+GMAT Sat3.X = -3500;
+
+GMAT Sat3.Y = -6062.177826491;
+
+GMAT Sat3.Z = 0;
+
+GMAT Sat3.VX = 6.495190528383;
+
+GMAT Sat3.VY = -3.75;
+
+GMAT Sat3.VZ = 0.1;
+
+GMAT Sat3.DryMass = 260;
+
+GMAT Sat3.Cd = 2.5;
+
+GMAT Sat3.Cr = 1.9;
+
+GMAT Sat3.DragArea = 2.5;
+
+GMAT Sat3.SRPArea = 1;
+
+GMAT Sat3.SPADDragScaleFactor = 1;
+
+GMAT Sat3.SPADSRPScaleFactor = 1;
+
+GMAT Sat3.NAIFId = -10813001;
+
+GMAT Sat3.NAIFIdReferenceFrame = -9813001;
+
+GMAT Sat3.OrbitColor = Yellow;
+
+GMAT Sat3.TargetColor = DarkGray;
+
+GMAT Sat3.Attitude = CoordinateSystemFixed;
+
+GMAT Sat3.ModelFile = 'aura.3ds';
+
+Create Spacecraft Sat4;
+
+GMAT Sat4.DateFormat = TAIModJulian;
+
+GMAT Sat4.Epoch = '21545';
+
+GMAT Sat4.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat4.DisplayStateType = Cartesian;
+
+GMAT Sat4.X = 4949.747468305833;
+
+GMAT Sat4.Y = 4949.747468305833;
+
+GMAT Sat4.Z = 3500;
+
+GMAT Sat4.VX = -5.303300858899;
+
+GMAT Sat4.VY = 5.303300858899;
+
+GMAT Sat4.VZ = 0.2;
+
+GMAT Sat4.DryMass = 260;
+
+GMAT Sat4.Cd = 2.5;
+
+GMAT Sat4.Cr = 1.9;
+
+GMAT Sat4.DragArea = 2.5;
+
+GMAT Sat4.SRPArea = 1;
+
+GMAT Sat4.SPADDragScaleFactor = 1;
+
+GMAT Sat4.SPADSRPScaleFactor = 1;
+
+GMAT Sat4.NAIFId = -10814001;
+
+GMAT Sat4.NAIFIdReferenceFrame = -9814001;
+
+GMAT Sat4.OrbitColor = Blue;
+
+GMAT Sat4.TargetColor = DimGray;
+
+GMAT Sat4.Attitude = CoordinateSystemFixed;
+
+GMAT Sat4.ModelFile = 'aura.3ds';
+
+Create Spacecraft Sat5;
+
+GMAT Sat5.DateFormat = TAIModJulian;
+
+GMAT Sat5.Epoch = '21545';
+
+GMAT Sat5.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat5.DisplayStateType = Cartesian;
+
+GMAT Sat5.X = -4949.747468305833;
+
+GMAT Sat5.Y = -4949.747468305833;
+
+GMAT Sat5.Z = 3500;
+
+GMAT Sat5.VX = 5.303300858899;
+
+GMAT Sat5.VY = -5.303300858899;
+
+GMAT Sat5.VZ = 0.2;
+
+GMAT Sat5.DryMass = 260;
+
+GMAT Sat5.Cd = 2.5;
+
+GMAT Sat5.Cr = 1.9;
+
+GMAT Sat5.DragArea = 2.5;
+
+GMAT Sat5.SRPArea = 1;
+
+GMAT Sat5.SPADDragScaleFactor = 1;
+
+GMAT Sat5.SPADSRPScaleFactor = 1;
+
+GMAT Sat5.NAIFId = -10815001;
+
+GMAT Sat5.NAIFIdReferenceFrame = -9815001;
+
+GMAT Sat5.OrbitColor = Pink;
+
+GMAT Sat5.TargetColor = DarkSlateGray;
+
+GMAT Sat5.Attitude = CoordinateSystemFixed;
+
+GMAT Sat5.ModelFile = 'aura.3ds';
+
+Create Spacecraft Sat6;
+
+GMAT Sat6.DateFormat = TAIModJulian;
+
+GMAT Sat6.Epoch = '21545';
+
+GMAT Sat6.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT Sat6.DisplayStateType = Cartesian;
+
+GMAT Sat6.X = 0;
+
+GMAT Sat6.Y = 0;
+
+GMAT Sat6.Z = 7000;
+
+GMAT Sat6.VX = 7.5;
+
+GMAT Sat6.VY = 0;
+
+GMAT Sat6.VZ = 0;
+
+GMAT Sat6.DryMass = 260;
+
+GMAT Sat6.Cd = 2.5;
+
+GMAT Sat6.Cr = 1.9;
+
+GMAT Sat6.DragArea = 2.5;
+
+GMAT Sat6.SRPArea = 1;
+
+GMAT Sat6.SPADDragScaleFactor = 1;
+
+GMAT Sat6.SPADSRPScaleFactor = 1;
+
+GMAT Sat6.NAIFId = -10816001;
+
+GMAT Sat6.NAIFIdReferenceFrame = -9816001;
+
+GMAT Sat6.OrbitColor = Lime;
+
+GMAT Sat6.TargetColor = LightGray;
+
+GMAT Sat6.Attitude = CoordinateSystemFixed;
+
+GMAT Sat6.ModelFile = 'aura.3ds';
+
+Create GroundStation myStation;
+
+GMAT myStation.StateType = Spherical;
+
+GMAT myStation.Location1 = 28.5383355;
+
+GMAT myStation.Location2 = 278.6207635;
+
+GMAT myStation.Location3 = 0;
+
+Create Antenna SpacecraftAntenna;
+
+Create Transponder HGA;
+
+GMAT HGA.PrimaryAntenna  = SpacecraftAntenna;
+
+GMAT HGA.HardwareDelay   = 1e-06;
+
+GMAT HGA.TurnAroundRatio = '880/749';
+
+Create Transmitter MeasurementTransmitter;
+
+GMAT MeasurementTransmitter.PrimaryAntenna = SpacecraftAntenna;
+
+GMAT MeasurementTransmitter.Frequency      = 7200;
+
+Create Receiver MeasurementReceiver;
+
+GMAT MeasurementReceiver.PrimaryAntenna    = SpacecraftAntenna;
+
+%----------------------------------------
+
+%---------- GPS Simulation Setup (SimSat1 - SimSat6)
+
+%----------------------------------------
+
+% Shared Hardware and Error Model
+
+Create Antenna GPSAntenna;
+
+Create Receiver GPSReceiver;
+
+GMAT GPSReceiver.PrimaryAntenna = GPSAntenna;
+
+Create ErrorModel GPS_PosVec;
+
+GMAT GPS_PosVec.Type = GPS_PosVec;
+
+GMAT GPS_PosVec.NoiseSigma = 0.010;
+
+GMAT GPSReceiver.ErrorModels = {GPS_PosVec};
+
+% Simulated Spacecraft (SimSat1 - SimSat6)
+
+Create Spacecraft SimSat1;
+
+GMAT SimSat1.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat1.DateFormat = TAIModJulian;
+
+GMAT SimSat1.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create XYPlot GNSS_StationPlot;
+
+% Use elapsed time as X
+
+GMAT GNSS_StationPlot.XVariable = SimSat1.ElapsedSecs;
+
+Create Spacecraft SimSat2;
+
+GMAT SimSat2.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat2.DateFormat = TAIModJulian;
+
+GMAT SimSat2.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat3;
+
+GMAT SimSat3.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat3.DateFormat = TAIModJulian;
+
+GMAT SimSat3.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat4;
+
+GMAT SimSat4.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat4.DateFormat = TAIModJulian;
+
+GMAT SimSat4.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat5;
+
+GMAT SimSat5.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat5.DateFormat = TAIModJulian;
+
+GMAT SimSat5.AddHardware = {GPSReceiver,GPSAntenna};
+
+Create Spacecraft SimSat6;
+
+GMAT SimSat6.CoordinateSystem = EarthMJ2000Eq;
+
+GMAT SimSat6.DateFormat = TAIModJulian;
+
+GMAT SimSat6.AddHardware = {GPSReceiver,GPSAntenna};
+
+   
+
+%
+
+Create Antenna SpacecraftAntenna
+
+Create Transponder HGA
+
+HGA.PrimaryAntenna  = SpacecraftAntenna
+
+HGA.HardwareDelay   = 1e-06
+
+HGA.TurnAroundRatio = '880/749'
+
+Create Transmitter MeasurementTransmitter
+
+Create Receiver MeasurementReceiver
+
+MeasurementTransmitter.PrimaryAntenna = SpacecraftAntenna
+
+MeasurementTransmitter.Frequency      = 7200
+
+MeasurementReceiver.PrimaryAntenna    = SpacecraftAntenna
+
+%----------------------------------------------------------------------
+
+% Cleaned-up Placeholder Objects (Laser Comm, Coordinate Systems, Variables)
+
+%----------------------------------------------------------------------
+
+Create Transmitter LrcdTx;
+
+GMAT LrcdTx.Frequency = 1.064;
+
+Create Receiver LrcdRx;
+
+Create CoordinateSystem EarthMoonRot;
+
+GMAT EarthMoonRot.Origin = Earth;
+
+GMAT EarthMoonRot.Axes = ObjectReferenced;
+
+GMAT EarthMoonRot.Primary = Earth;
+
+GMAT EarthMoonRot.Secondary = Luna;
+
+% Define variables needed for element reporting
+
+Create Variable SMA ECC INC AOP RAAN TA;
+
+%----------------------------------------
+
+%---------- Force Model and Propagator
+
+%----------------------------------------
+
+Create ForceModel FM_Earth;
+
+GMAT FM_Earth.CentralBody = Earth;
+
+GMAT FM_Earth.PointMasses = {Earth, Sun}; % Moon removed
+
+GMAT FM_Earth.Drag = None;
+
+GMAT FM_Earth.SRP = Off;
+
+GMAT FM_Earth.ErrorControl = RSSStep;
+
+Create Propagator PropRK;
+
+GMAT PropRK.Type = RungeKutta89;
+
+GMAT PropRK.FM = FM_Earth;
+
+GMAT PropRK.InitialStepSize = 60;
+
+GMAT PropRK.Accuracy = 1e-10;
+
+GMAT PropRK.MinStep = 0.1;
+
+GMAT PropRK.MaxStep = 300;
+
+%----------------------------------------
+
+%---------- Dynamic Output Setup
+
+%----------------------------------------
+
+% 1. 3D Orbit View
+
+Create OrbitView Orbit3D;
+
+GMAT Orbit3D.Add = {Sat1,Sat2,Sat3,Sat4,Sat5,Sat6,SimSat1,SimSat2,SimSat3,SimSat4,SimSat5,SimSat6,Earth,PointA,PointB};
+
+% 2. Dynamic XY Plot (Example: Sat1 X vs Y position)
+
+Create XYPlot XY_Constellation;
+
+GMAT XY_Constellation.Add = {Sat1.X, Sat1.Y, Sat2.X, Sat2.Y, Sat3.X, Sat3.Y};
+
+GMAT XY_Constellation.XVariable = Sat1.X;
+
+% 2.5. Ground Track Plot (Map view showing satellite ground tracks and ground station positions)
+
+Create GroundTrackPlot GroundMap;
+
+GMAT GroundMap.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6, SimSat1, SimSat2, SimSat3, SimSat4, SimSat5, SimSat6, PointA, PointB};
+
+GMAT GroundMap.CentralBody = Earth;
+
+% 3. Report File for Correlation Matrix (OD Result Placeholder)
+
+Create ReportFile CorrMatrixReport;
+
+GMAT CorrMatrixReport.Filename = 'CorrelationMatrix.txt';
+
+% 4. Report File for Orbital Elements (Initial/Final State Output)
+
+Create ReportFile OrbitElementReport;
+
+GMAT OrbitElementReport.Filename = 'Sat1OrbitalElements.txt';
+
+GMAT OrbitElementReport.Precision = 6;
+
+GMAT OrbitElementReport.WriteHeaders = On;
+
+GMAT OrbitElementReport.Delimiter = 'Comma';
+
+Create Transmitter MeasurementTransmitter
+
+Create Receiver MeasurementReceiver
+
+MeasurementTransmitter.PrimaryAntenna = SpacecraftAntenna
+
+MeasurementTransmitter.Frequency      = 7200
+
+MeasurementReceiver.PrimaryAntenna    = SpacecraftAntenna
+
+Create ReportFile LCRDReport;
+
+LCRDReport.Filename = 'LCRD_Link.log';
+
+%-------------------------------
+
+% Cloud variables
+
+%-------------------------------
+
+% Create a variable to hold the current cloud coverage (percent)
+
+Create Variable CloudCoverage;
+
+CloudCoverage = 1.0; % default (percent 0-100)
+
+Create Variable ReceivedPower_dB;
+
+Create Variable Throughput_Gbps;
+
+Create Variable LaserGatingStatus;
+
+Create Antenna BRTSAntenna
+
+Create Transponder BRTSTransponder
+
+BRTSTransponder.PrimaryAntenna  = BRTSAntenna
+
+BRTSTransponder.HardwareDelay   = 1.0e-06
+
+BRTSTransponder.TurnAroundRatio = '240/221' 
+
+Create Imager StarCam1;
+
+Create Imager StarCam2;
+
+% --------------------------
+
+% Antennas for LCRD links
+
+% --------------------------
+
+Create Antenna LrcdDish;
+
+LrcdTx.PrimaryAntenna = LrcdDish;
+
+LrcdRx.PrimaryAntenna = LrcdDish;
+
+Create Antenna LrcdDish_SimSat1;
+
+Create Antenna LrcdDish_SimSat2;
+
+Create Antenna LrcdDish_SimSat3;
+
+Create Antenna LrcdDish_SimSat4;
+
+Create Antenna LrcdDish_SimSat5;
+
+Create Antenna LrcdDish_SimSat6;
+
+LrcdTx_SimSat1.PrimaryAntenna = LrcdDish_SimSat1;
+
+LrcdRx_SimSat1.PrimaryAntenna = LrcdDish_SimSat1;
+
+LrcdTx_SimSat2.PrimaryAntenna = LrcdDish_SimSat2;
+
+LrcdRx_SimSat2.PrimaryAntenna = LrcdDish_SimSat2;
+
+LrcdTx_SimSat3.PrimaryAntenna = LrcdDish_SimSat3;
+
+LrcdRx_SimSat3.PrimaryAntenna = LrcdDish_SimSat3;
+
+LrcdTx_SimSat4.PrimaryAntenna = LrcdDish_SimSat4;
+
+LrcdRx_SimSat4.PrimaryAntenna = LrcdDish_SimSat4;
+
+LrcdTx_SimSat5.PrimaryAntenna = LrcdDish_SimSat5;
+
+LrcdRx_SimSat5.PrimaryAntenna = LrcdDish_SimSat5;
+
+LrcdTx_SimSat6.PrimaryAntenna = LrcdDish_SimSat6;
+
+LrcdRx_SimSat6.PrimaryAntenna = LrcdDish_SimSat6;
+
+% -------------------------
+
+% Define StarCam1 Imager
+
+% -------------------------
+
+Create Imager StarCam1;
+
+StarCam1.DirectionX = 1;
+
+StarCam1.DirectionY = 0;
+
+StarCam1.DirectionZ = 0;
+
+StarCam1.SecondDirectionX = 0;
+
+StarCam1.SecondDirectionY = 1;
+
+StarCam1.SecondDirectionZ = 0;
+
+StarCam1.HWOriginInBCSX = 0;
+
+StarCam1.HWOriginInBCSY = 0;
+
+StarCam1.HWOriginInBCSZ = 0;
+
+Create Variable UndefinedFieldOfView;
+
+UndefinedFieldOfView = 10;  % Example FOV in degrees
+
+% -------------------------
+
+% 3D Orbit Plot
+
+% -------------------------
+
+Create OrbitView Orbit3D;
+
+Orbit3D.Add = {Sat1, Sat2, Sat3, Sat4, Sat5, Sat6, SimSat1, SimSat2, SimSat3, SimSat4, SimSat5, SimSat6, Earth};
+
+Create ReportFile ContactReport;
+
+ContactReport.Filename = 'Starlink_Contact.csv';
+
+ContactReport.WriteHeaders = On;
+
+ContactReport.Delimiter = Comma;
+
+%----------------------------------------
+
+%---------- Mission Sequence
+
+%----------------------------------------
+
+BeginMissionSequence;
+
+% Write Initial Orbital Elements for Sat1
+
+Report OrbitElementReport Sat1.A1ModJulian;
+
+% Write Final Orbital Elements for Sat1
+
+Report OrbitElementReport Sat1.A1ModJulian;
+
+% --- 2) Evaluate cloud gating for LCRD laser link (simple rule)
+
+% CloudCoverage variable expected 0..100 percent (set earlier or set here)
+
+% If CloudCoverage < 50 => gate open (LaserGatingStatus = 1), else closed (0)
+
+   LaserGatingStatus = 1;
+
+   LaserGatingStatus = 0;
+
+% --- 3) Simple placeholders for Received power and throughput (replace with physics later)
+
+% ReceivedPower_dB: crude proxy that degrades with cloud coverage
+
+ReceivedPower_dB = -20.0 + (100.0 - CloudCoverage) / 5.0;  % placeholder calc
+
+% Throughput_Gbps: zero if gate closed; otherwise scales (10 Gbps max) with clear sky fraction
+
+   Throughput_Gbps = 10.0 * (1.0 - CloudCoverage/100.0);
+
+   Throughput_Gbps = 0.0;
+
+% Log the link state values
+
+% --- 4) Write initial orbital element snapshot for Sat1 (and optionally others)
+
+Report OrbitElementReport Sat1.A1ModJulian;
+
+Report OrbitElementReport Sat1.SMA;
+
+Report OrbitElementReport Sat1.ECC;
+
+Report OrbitElementReport Sat1.INC;
+
+% --- 5) (Optional) update dynamic displays / reset plots if needed
+
+% For interactive runs: clear/reset plot data (GMAT GUI does this automatically normally)
+
+% Example: Report current XY values to XY plot (not strictly necessary)
+
+% Report XY_Constellation Sat1.X Sat1.Y Sat2.X Sat2.Y Sat3.X Sat3.Y;
+
+% --- 6) Propagate all spacecraft together for 1 day (86400 seconds)
+
+Propagate PropRK(Sat1, Sat2, Sat3, Sat4, Sat5, Sat6, SimSat1, SimSat2, SimSat3, SimSat4, SimSat5, SimSat6) {Sat1.ElapsedSecs = 86400};
+
+   LaserGatingStatus = 1;
+
+   LaserGatingStatus = 0;
+
+% Recompute placeholders (post-propagation)
+
+ReceivedPower_dB = -20.0 + (100.0 - CloudCoverage) / 5.0;
+
+   Throughput_Gbps = 10.0 * (1.0 - CloudCoverage/100.0);
+
+   Throughput_Gbps = 0.0;
+
+% --- 8) Final orbital elements for Sat1 (write to file)
+
+Report OrbitElementReport Sat1.A1ModJulian;
+
+Report OrbitElementReport Sat1.SMA;
+
+Report OrbitElementReport Sat1.ECC;
+
+Report OrbitElementReport Sat1.INC;
